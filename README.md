@@ -89,9 +89,8 @@ This explanation covers the main functions in the game and what they do. Each fu
 <p>Linking</p>
 
 ```python
-`with open("Setting\\Setting.json", 'r') as f:
-    data = json.load(f)`
-#This code is present for reading json setting.
-
+with open("Setting\\Setting.json", 'r') as f:
+    data = json.load(f)
+#This code is present for reading json setting. I know this because this website let me know https://www.w3schools.com/python/python_json.asp
 
 ```
