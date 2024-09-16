@@ -6,7 +6,7 @@
 This Ping Pong game is a simple Python project using turtle and tkinter. The game includes a main menu with options to start, adjust settings, view controls, or quit. Players control paddles using the keyboard, with Player A using W and S, and Player B using the arrow keys. The ball bounces off the walls, and points are scored when a player misses. Settings allow the ball shape to be changed between a square and a circle. The game features reset and quit functions and keeps track of player scores.</p>
 
 
-<h2>Explanation code</h2>
+<h2>Code explanation</h2>
 
 ```markdown
 # Ping Pong Game
@@ -86,7 +86,7 @@ This explanation covers the main functions in the game and what they do. Each fu
 
 
 
-<p>Linking</p>
+<h2>Linking</h2>
 
 ```python
 with open("Setting\\Setting.json", 'r') as f:
