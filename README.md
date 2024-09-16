@@ -159,52 +159,63 @@ R = Reset the game
 ESC = Quit the game
     """)
 
+#Setting function, make a GUI and then player can customize it
 def Setting_func():
+    #call other variable in this function
     global MainMenu, Fr1
     global Shape
     global Fr2
 
+    #Destroy the before frame
     Fr1.pack_forget()
     
-    
+    #Create a new frame
     Fr2 = tk.Frame(MainMenu, width= 500, height= 500)
     Fr2.pack()
     Fr2.pack_propagate(0)
-    
+
+    #Label of the setting
     Ball_shape_label = tk.Label(Fr2, text= "Ball shapes", font=("ROBOTO", 16))
     Ball_shape_label.pack()
 
+    #A box where player can change ball shape
     Ball_shape = ttk.Combobox(Fr2, values= ["square", "circle"], font= ("ROBOTO", 16), textvariable= Shape)
     Ball_shape.pack()
-    
+
+    #Check what in setting
     if Shape == "circle":
         Ball_shape.current(1)
     elif Shape == "square":
         Ball_shape.current(0)
-    
+
+    #Apply button
     Apply = tk.Button(Fr2, text= "Apply", font= ("ROBOTO", 16), command= lambda: apply())
     Apply.pack()
     Apply.place(rely = 0.9, relx= 0.8)
-    
+
+    #Go back button
     Back = tk.Button(Fr2, text= "Back", font= ("ROBOTO", 16), command= lambda: back())
     Back.pack()
     Back.place(rely = 0.9, relx= 0.1)
-    
+
+    #Apply function, Save everything player customize in the game to the json file
     def apply():
-        s = Ball_shape.get()
-        data["Shape"] = s
+        s = Ball_shape.get() #Get the text box
+        data["Shape"] = s #Set value of the data
+        #dump file
         with open("Setting\\Setting.json", 'w') as f:
             json.dump(data, f)
 
+    #Go back function
     def back():
         Fr2.pack_forget()
         Fr1.pack()
         
 def GamePlay():
     try:
-        global MainMenu, Shape
-        MainMenu.destroy()
-        Window = T.Screen()
+        global MainMenu, Shape #call the global variable
+        MainMenu.destroy() #Destroy the main menu
+        Window = T.Screen() #Create a screen for turtle in page 
         Window.bgcolor("black")
         Window.title("Ping Pong Game")
         Window.setup(width= 800, height= 600)
