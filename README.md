@@ -93,4 +93,8 @@ with open("Setting\\Setting.json", 'r') as f:
     data = json.load(f)
 #This code is present for reading json setting. I know this because this website let me know https://www.w3schools.com/python/python_json.asp
 
+#in GamePlay(), I use try: except: is for checking the error if it happen in the game
+
+#pad_a() = T.Turtle(), pad_b = T.Turtle(), ball = T.turtle() linking to page 8, task 7 - setposition Method.
+#
 ```
