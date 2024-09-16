@@ -88,6 +88,10 @@ This explanation covers the main functions in the game and what they do. Each fu
 
 <p>Linking</p>
 
-```markdown
-#`with open("Setting\\Setting) as f:` present for read json file, I found this document in `https://www.w3schools.com/python/python_json.asp`
+```python
+`with open("Setting\\Setting.json", 'r') as f:
+    data = json.load(f)`
+#This code is present for reading json setting.
+
+
 ```
