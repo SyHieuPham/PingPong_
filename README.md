@@ -87,7 +87,9 @@ This explanation covers the main functions in the game and what they do. Each fu
 ```
 
 <h2>Code, Linking</h2>
+
 ```python
+
 import turtle as T #Import turtle library
 import random #Import random library
 import tkinter as tk #Import tkinter for creading GUI
