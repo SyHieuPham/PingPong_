@@ -1,8 +1,8 @@
 <h1>IST ASSESSMENT</h1>
-<li>
+<section>
     <h2>Sy Hieu Pham</h2>
     <h3>10 IST 1</h3>
-</li>
+</section>
 
 <h2>Introduction</h2>
 <p>
