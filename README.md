@@ -83,3 +83,10 @@ The `reset()` function resets the game by setting the ball back to the middle of
 
 This explanation covers the main functions in the game and what they do. Each function has a specific purpose, like starting the game, moving paddles, or updating settings.
 ```
+
+
+
+<p>Linking</p>
+```markdown
+`with open("Setting\\Setting) as f:` present for read json file, I found this document in `https://www.w3schools.com/python/python_json.asp`
+```
