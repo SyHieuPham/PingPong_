@@ -86,10 +86,7 @@ The `reset()` function resets the game by setting the ball back to the middle of
 This explanation covers the main functions in the game and what they do. Each function has a specific purpose, like starting the game, moving paddles, or updating settings.
 ```
 
-
-
-<h2>Linking</h2>
-
+<h2>Code, Linking</h2>
 ```python
 import turtle as T #Import turtle library
 import random #Import random library
