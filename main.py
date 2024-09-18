@@ -99,129 +99,144 @@ def Setting_func():
         
 def GamePlay():
     try:
+        # Initialize the main window and ball shape
         global MainMenu, Shape
-        MainMenu.destroy()
-        Window = T.Screen()
-        Window.bgcolor("black")
-        Window.title("Ping Pong Game")
-        Window.setup(width= 800, height= 600)
+        MainMenu.destroy()  # Close the main menu window
+        Window = T.Screen()  # Create a new Turtle screen for the game
+        Window.bgcolor("black")  # Set background color to black
+        Window.title("Ping Pong Game")  # Set the window title
+        Window.setup(width=800, height=600)  # Set the size of the game window
 
-        pad_a= T.Turtle()
-        pad_a.speed(0)
-        pad_a.shape("square")
-        pad_a.color("white")
-        pad_a.shapesize(stretch_wid=5,stretch_len=1)
-        pad_a.penup()
-        pad_a.goto(-350,0)
+        # Set up Paddle A (Exercise 13.3 Arrow Keys example from page 4) 
+        pad_a = T.Turtle()  # Create a Turtle object for paddle A
+        pad_a.speed(0)  # Set speed of animation (0 is the fastest)
+        pad_a.shape("square")  # Set shape of paddle A to square
+        pad_a.color("white")  # Set color of paddle A to white
+        pad_a.shapesize(stretch_wid=5, stretch_len=1)  # Stretch paddle A (wider and shorter)
+        pad_a.penup()  # Disable drawing for paddle A
+        pad_a.goto(-350, 0)  # Move paddle A to the left side
 
-        pad_b= T.Turtle()
-        pad_b.speed(0)
-        pad_b.shape("square")
-        pad_b.color("white")
-        pad_b.shapesize(stretch_wid=5,stretch_len=1)
-        pad_b.penup()
-        pad_b.goto(350,0)
+        # Set up Paddle B (Another example of the same exercise) 
+        pad_b = T.Turtle()  # Create a Turtle object for paddle B
+        pad_b.speed(0)  # Set speed of animation
+        pad_b.shape("square")  # Set shape of paddle B to square
+        pad_b.color("white")  # Set color of paddle B to white
+        pad_b.shapesize(stretch_wid=5, stretch_len=1)  # Stretch paddle B
+        pad_b.penup()  # Disable drawing for paddle B
+        pad_b.goto(350, 0)  # Move paddle B to the right side
 
-        ball= T.Turtle()
-        ball.speed(0)
-        Shape = data["Shape"]
-        print(Shape)
-        ball.shape(Shape)
-        ball.color("white")
-        ball.penup()
-        ball.goto(0,0)
-        ball.dx = 0.05
-        ball.dy = 0.05
+        # Set up the ball (Linked to 'Bouncing Ball' Task) 
+        ball = T.Turtle()  # Create a Turtle object for the ball
+        ball.speed(0)  # Set speed of animation
+        Shape = data["Shape"]  # Fetch the ball shape from settings
+        print(Shape)  # Print shape for debugging purposes
+        ball.shape(Shape)  # Set ball shape based on the saved setting
+        ball.color("white")  # Set ball color to white
+        ball.penup()  # Disable drawing for the ball
+        ball.goto(0, 0)  # Position the ball at the center
+        ball.dx = 0.05  # Set the horizontal movement of the ball
+        ball.dy = 0.05  # Set the vertical movement of the ball
 
+        # Initialize the score variables
         global score_a, score_b
         score_a = 0
         score_b = 0
 
-        pen = T.Turtle()
-        pen.speed(0)
-        pen.color("white")
-        pen.penup()
-        pen.hideturtle()
-        pen.goto(0,260)
-        pen.write("Player A : "+ str(score_a) +" Player B : "+ str(score_b),align="center",font=("Courier",24,"normal"))
+        # Create a pen object to display the score (Turtle with Text example from Task 6) 
+        pen = T.Turtle()  # Create a Turtle object for the score display
+        pen.speed(0)  # Set animation speed
+        pen.color("white")  # Set pen color to white
+        pen.penup()  # Disable drawing
+        pen.hideturtle()  # Hide the turtle
+        pen.goto(0, 260)  # Position the score display
+        pen.write("Player A : " + str(score_a) + " Player B : " + str(score_b), align="center", font=("Courier", 24, "normal"))  # Display the score
 
+        # Paddle movement functions (Arrow key binding example from page 4) 
         def pad_a_up():
-            y = pad_a.ycor()
-            y += 20
-            pad_a.sety(y)   
+            y = pad_a.ycor()  # Get the y-coordinate of paddle A
+            y += 20  # Move it up by 20 units
+            pad_a.sety(y)  # Set the new y-coordinate
 
         def pad_a_down():
-            y = pad_a.ycor()
-            y -= 20
-            pad_a.sety(y)
+            y = pad_a.ycor()  # Get the y-coordinate of paddle A
+            y -= 20  # Move it down by 20 units
+            pad_a.sety(y)  # Set the new y-coordinate
 
         def pad_b_up():
-            y = pad_b.ycor()
-            y += 20
-            pad_b.sety(y)   
+            y = pad_b.ycor()  # Get the y-coordinate of paddle B
+            y += 20  # Move it up by 20 units
+            pad_b.sety(y)  # Set the new y-coordinate
 
         def pad_b_down():
-            y = pad_b.ycor()
-            y -= 20
-            pad_b.sety(y)  
+            y = pad_b.ycor()  # Get the y-coordinate of paddle B
+            y -= 20  # Move it down by 20 units
+            pad_b.sety(y)  # Set the new y-coordinate
 
+        # Exit the game (Linked to Scope exercise, where functions control Turtle movement) 
         def ex():
-            Window.bye()
-            
+            Window.bye()  # Close the game window
 
+        # Reset the game (Linked to a similar control practice on page 4) 
         def reset():
             global score_a, score_b
-            ball.goto(0, 0)
-            score_a = 0
-            score_b = 0
-            pen.clear()
-            pen.write("Player A : "+ str(score_a) +" Player B : "+ str(score_b),align="center",font=("Courier",24,"normal"))
+            ball.goto(0, 0)  # Reset the ball position to the center
+            score_a = 0  # Reset Player A's score
+            score_b = 0  # Reset Player B's score
+            pen.clear()  # Clear the score display
+            pen.write("Player A : " + str(score_a) + " Player B : " + str(score_b), align="center", font=("Courier", 24, "normal"))  # Display the reset score
 
-        Window.listen()
-        Window.onkeypress(pad_a_up,"w")
-        Window.onkeypress(pad_a_down,"s")
-        Window.onkeypress(pad_b_up,"Up")
-        Window.onkeypress(pad_b_down,"Down")
-        Window.onkeypress(ex, "Escape")
-        Window.onkeypress(reset, "r")
+        # Keyboard bindings
+        Window.listen()  # Start listening for keyboard input
+        Window.onkeypress(pad_a_up, "w")  # Bind W key to move paddle A up
+        Window.onkeypress(pad_a_down, "s")  # Bind S key to move paddle A down
+        Window.onkeypress(pad_b_up, "Up")  # Bind Up arrow key to move paddle B up
+        Window.onkeypress(pad_b_down, "Down")  # Bind Down arrow key to move paddle B down
+        Window.onkeypress(ex, "Escape")  # Bind Escape key to exit the game
+        Window.onkeypress(reset, "r")  # Bind R key to reset the game
 
+        # Main game loop (Bouncing Ball exercise from page 5) 
         while True:
-            Window.update()
-            ball.setx(ball.xcor() + ball.dx * 75)
-            ball.sety(ball.ycor() + ball.dy * 75)
-            
-            if ball.ycor() > 290 :
-                ball.sety(290)
-                ball.dy *= -1
-            
-            if ball.ycor() < -290 :
-                ball.sety(-290)
-                ball.dy *= -1
-            
-            if ball.xcor() > 390 :
-                score_a += 1
-                ball.goto(0,0)
-                ball.dx *= -1
-                pen.clear()
-                pen.write("Player A : "+ str(score_a) +" Player B : "+ str(score_b),align="center",font=("Courier",24,"normal"))
-            
-            if ball.xcor() < -390 :
-                score_b += 1
-                ball.goto(0,0)
-                ball.dx *= -1
-                pen.clear()
-                pen.write("Player A : "+ str(score_a) +" Player B : "+ str(score_b),align="center",font=("Courier",24,"normal"))
+            Window.update()  # Update the game window every frame
+            ball.setx(ball.xcor() + ball.dx * 75)  # Move the ball horizontally
+            ball.sety(ball.ycor() + ball.dy * 75)  # Move the ball vertically
 
-            
-            if (ball.xcor() > 340 and ball.xcor() < 350) and ball.ycor() < pad_b.ycor() + 50 and ball.ycor() > pad_b.ycor() - 50 :
-                ball.setx(340)
-                ball.dx *= -1
+            # Ball collision with the top wall (Boundary exercise Task) 
+            if ball.ycor() > 290:
+                ball.sety(290)  # Reset the ball position
+                ball.dy *= -1  # Reverse the ball direction
 
-            if (ball.xcor() < -340 and ball.xcor() > -350) and ball.ycor() < pad_a.ycor() + 50 and ball.ycor() > pad_a.ycor() - 50 :
-                ball.setx(-340)
-                ball.dx *= -1
+            # Ball collision with the bottom wall (Another boundary collision handling) 
+            if ball.ycor() < -290:
+                ball.sety(-290)  # Reset the ball position
+                ball.dy *= -1  # Reverse the ball direction
+
+            # Ball goes past paddle B (right side)
+            if ball.xcor() > 390:
+                score_a += 1  # Increment Player A's score
+                ball.goto(0, 0)  # Reset the ball position
+                ball.dx *= -1  # Reverse the ball direction
+                pen.clear()  # Clear the score display
+                pen.write("Player A : " + str(score_a) + " Player B : " + str(score_b), align="center", font=("Courier", 24, "normal"))  # Update the score display
+
+            # Ball goes past paddle A (left side)
+            if ball.xcor() < -390:
+                score_b += 1  # Increment Player B's score
+                ball.goto(0, 0)  # Reset the ball position
+                ball.dx *= -1  # Reverse the ball direction
+                pen.clear()  # Clear the score display
+                pen.write("Player A : " + str(score_a) + " Player B : " + str(score_b), align="center", font=("Courier", 24, "normal"))  # Update the score display
+
+            # Ball collision with paddle B (Bouncing example) 
+            if (ball.xcor() > 340 and ball.xcor() < 350) and ball.ycor() < pad_b.ycor() + 50 and ball.ycor() > pad_b.ycor() - 50:
+                ball.setx(340)  # Reset the ball position
+                ball.dx *= -1  # Reverse the ball direction
+
+            # Ball collision with paddle A (Bouncing example) 
+            if (ball.xcor() < -340 and ball.xcor() > -350) and ball.ycor() < pad_a.ycor() + 50 and ball.ycor() > pad_a.ycor() - 50:
+                ball.setx(-340)  # Reset the ball position
+                ball.dx *= -1  # Reverse the ball direction
     except Exception:
-        pass
+        pass  # Catch any errors that occur during the game loop
 
 if __name__ == "__main__":
     main_menu()
