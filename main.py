@@ -1,3 +1,4 @@
+# Import necessary modules: Turtle for the game, tkinter for the GUI, json for settings, and threading for multi-threading if needed
 import turtle as T
 import random
 import tkinter as tk
@@ -6,48 +7,57 @@ from tkinter import messagebox
 import threading
 import json
 
-
-
+# Open the settings file and load the data (specifically the shape setting for the ball)
 with open("Setting\\Setting.json", 'r') as f:
     data = json.load(f)
 
+# Store the ball shape from the settings into a variable
 Shape = data["Shape"]
 
+# Main menu function to create the GUI for the main menu
 def main_menu():
     global MainMenu
 
+    # Create a Tkinter window for the main menu
     MainMenu = tk.Tk()
-    MainMenu.title("PING PONG")
-    MainMenu.geometry("500x500")
-    MainMenu.resizable(0, 0)
+    MainMenu.title("PING PONG")  # Set the window title
+    MainMenu.geometry("500x500")  # Set the window size
+    MainMenu.resizable(0, 0)  # Disable window resizing
 
+    # Create a frame to contain all the menu elements
     global Fr1
-    Fr1 = tk.Frame(MainMenu, width= 500, height= 500)
-    Fr1.pack()
-    Fr1.pack_propagate(0)
+    Fr1 = tk.Frame(MainMenu, width=500, height=500)
+    Fr1.pack()  # Pack the frame
+    Fr1.pack_propagate(0)  # Disable the frame's automatic resizing
 
-    Title = tk.Label(Fr1, text= "Ping Pong!", font= ("ROBOTO", 32))
+    # Add a title label for the menu
+    Title = tk.Label(Fr1, text="Ping Pong!", font=("ROBOTO", 32))
     Title.pack()
 
-    Start = tk.Button(Fr1, text= "Start", font= ("ROBOTO", 16), background = "blue", fg= "White", command= lambda: GamePlay())
-    Start.pack()
-    Start.place(relx= 0.39, rely= 0.4, width= 120)
+    # Add a Start button to initiate the game (calls GamePlay when clicked)
+    Start = tk.Button(Fr1, text="Start", font=("ROBOTO", 16), background="blue", fg="White", command=lambda: GamePlay())
+    Start.pack()  # Pack the button
+    Start.place(relx=0.39, rely=0.4, width=120)  # Position the button
 
-    Setting = tk.Button(Fr1, text= "Setting", font= ("ROBOTO", 16), background = "blue", fg= "White", command= lambda: Setting_func())
+    # Add a Settings button to open the settings menu
+    Setting = tk.Button(Fr1, text="Setting", font=("ROBOTO", 16), background="blue", fg="White", command=lambda: Setting_func())
     Setting.pack()
-    Setting.place(relx= 0.39, rely= 0.5, width= 120)
+    Setting.place(relx=0.39, rely=0.5, width=120)  # Position the button
     
-    Help = tk.Button(Fr1, text= "How to play", font= ("ROBOTO", 16), background = "blue", fg= "White", command= HowToPlay)
+    # Add a Help button that shows how to play the game
+    Help = tk.Button(Fr1, text="How to play", font=("ROBOTO", 16), background="blue", fg="White", command=HowToPlay)
     Help.pack()
-    Help.place(relx= 0.39, rely= 0.6, width= 120)
+    Help.place(relx=0.39, rely=0.6, width=120)  # Position the button
 
-
-    Quit = tk.Button(Fr1, text= "Quit", font= ("ROBOTO", 16), background = "blue", fg= "White", command= lambda: exit(-1))
+    # Add a Quit button that closes the application
+    Quit = tk.Button(Fr1, text="Quit", font=("ROBOTO", 16), background="blue", fg="White", command=lambda: exit(-1))
     Quit.pack()
-    Quit.place(relx= 0.39, rely= 0.7, width= 120)
+    Quit.place(relx=0.39, rely=0.7, width=120)  # Position the button
 
+    # Run the Tkinter main loop to keep the window open
     MainMenu.mainloop()
 
+# Function to display the 'How to Play' instructions
 def HowToPlay():
     messagebox.showinfo("How to play this game", """
 W/Up = go up
@@ -56,46 +66,53 @@ R = Reset the game
 ESC = Quit the game    
                         """)
 
+# Function to handle settings where users can change the shape of the ball
 def Setting_func():
     global MainMenu, Fr1
     global Shape
     global Fr2
 
+    # Hide the first frame (main menu) and create a new frame for settings
     Fr1.pack_forget()
-    
-    
-    Fr2 = tk.Frame(MainMenu, width= 500, height= 500)
+    Fr2 = tk.Frame(MainMenu, width=500, height=500)
     Fr2.pack()
-    Fr2.pack_propagate(0)
-    
-    Ball_shape_label = tk.Label(Fr2, text= "Ball shapes", font=("ROBOTO", 16))
+    Fr2.pack_propagate(0)  # Prevent the frame from resizing
+
+    # Add a label for the ball shape settings
+    Ball_shape_label = tk.Label(Fr2, text="Ball shapes", font=("ROBOTO", 16))
     Ball_shape_label.pack()
 
-    Ball_shape = ttk.Combobox(Fr2, values= ["square", "circle"], font= ("ROBOTO", 16), textvariable= Shape)
+    # Create a dropdown (combobox) to select the ball shape
+    Ball_shape = ttk.Combobox(Fr2, values=["square", "circle"], font=("ROBOTO", 16), textvariable=Shape)
     Ball_shape.pack()
-    
+
+    # Set the default selection based on the current shape in the settings
     if Shape == "circle":
         Ball_shape.current(1)
     elif Shape == "square":
         Ball_shape.current(0)
     
-    Apply = tk.Button(Fr2, text= "Apply", font= ("ROBOTO", 16), command= lambda: apply())
+    # Add an Apply button to save the selected shape
+    Apply = tk.Button(Fr2, text="Apply", font=("ROBOTO", 16), command=lambda: apply())
     Apply.pack()
-    Apply.place(rely = 0.9, relx= 0.8)
-    
-    Back = tk.Button(Fr2, text= "Back", font= ("ROBOTO", 16), command= lambda: back())
+    Apply.place(rely=0.9, relx=0.8)  # Position the button
+
+    # Add a Back button to return to the main menu
+    Back = tk.Button(Fr2, text="Back", font=("ROBOTO", 16), command=lambda: back())
     Back.pack()
-    Back.place(rely = 0.9, relx= 0.1)
-    
+    Back.place(rely=0.9, relx=0.1)  # Position the button
+
+    # Function to apply the selected ball shape and update the settings file
     def apply():
-        s = Ball_shape.get()
-        data["Shape"] = s
-        with open("Setting\\Setting.json", 'w') as f:
+        s = Ball_shape.get()  # Get the selected shape
+        data["Shape"] = s  # Update the data dictionary
+        with open("Setting\\Setting.json", 'w') as f:  # Save the updated settings to the file
             json.dump(data, f)
 
+    # Function to return to the main menu
     def back():
-        Fr2.pack_forget()
-        Fr1.pack()
+        Fr2.pack_forget()  # Hide the settings frame
+        Fr1.pack()  # Show the main menu frame
         
 def GamePlay():
     try:
